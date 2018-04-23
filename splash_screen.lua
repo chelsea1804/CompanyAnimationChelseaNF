@@ -22,10 +22,11 @@ local scene = composer.newScene( sceneName )
  
 -- The local variables for this scene
 local stars
-local scrollXSpeed = 8
-local scrollYSpeed = -3
-local stringSounds = audio.loadSound("Sounds/blessed.mp3")
-local stringSoundsChannel
+local scrollSpeed = 5
+local scrollXSpeed = 9
+local scrollYSpeed = -4
+local pianoSounds = audio.loadSound("Sounds/pianoEdited.mp3")
+local pianoSoundsChannel
 
 --------------------------------------------------------------------------------------------
 -- LOCAL FUNCTIONS
@@ -35,12 +36,22 @@ local stringSoundsChannel
 local function moveStars()
     stars.x = stars.x + scrollXSpeed
     stars.y = stars.y + scrollYSpeed
+   
+    -- change the transparency of the logo
+    -- fades out
+    stars.alpha = stars.alpha - 0.01
+   
+    -- rotate the logo 45 degrees again and again
+    stars:rotate( 45 )
+
+    -- scale the image by 200% (x) and 50% (y)
+    stars:scale(1, 1)
+
+    stars.width = stars.width + scrollSpeed
+    stars.height = stars.height + scrollSpeed
 end
 
--- The function that will go to the main menu 
-local function gotoMainMenu()
-    composer.gotoScene( "main_menu" )
-end
+
 
 -----------------------------------------------------------------------------------------
 -- GLOBAL SCENE FUNCTIONS
@@ -60,7 +71,7 @@ function scene:create( event )
 
     -- set the initial x and y position of the stars
     stars.x = 100
-    stars.y = display.contentHeight/2
+    stars.y = display.contentHeight/1
 
     -- Insert objects into the scene group in order to ONLY be associated with this scene
     sceneGroup:insert( stars )
@@ -88,7 +99,7 @@ function scene:show( event )
 
     elseif ( phase == "did" ) then
         -- start the splash screen music
-        stringSoundsChannel = audio.play(stringSounds )
+        pianoSoundsChannel = audio.play( pianoSounds )
 
         -- Call the moveStars function as soon as we enter the frame.
         Runtime:addEventListener("enterFrame", moveStars)
@@ -122,7 +133,7 @@ function scene:hide( event )
     elseif ( phase == "did" ) then
         
         -- stop the jungle sounds channel for this screen
-        audio.stop(stringSoundsChannel)
+        audio.stop(pianoSoundsChannel)
     end
 
 end --function scene:hide( event )
