@@ -1,8 +1,9 @@
 -----------------------------------------------------------------------------------------
--- Title: CompanyAnimationChelseaNF
+-- Title: French Star
 -- Name: Chelsea NF
 -- Course: ICS2O/3C
--- This program displays the company logo on the splash screen.
+-- This program ... 
+
 -----------------------------------------------------------------------------------------
 
 -- Hiding Status Bar
